@@ -3,11 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class OrderItem extends Model
 {
-    // protected $fillable = ['order_id', 'menu_items_id', 'quantity', 'price'];
-    
+    use HasFactory;
+    protected $fillable = ['order_id', 'menu_item_id', 'quantity', 'price'];
+
+    // protected $fillable = ['menu_item_id', 'quantity', 'price'];
+
+    // OrderItem Model
+    protected $guarded = []; // This allows all fields to be mass-assigned
+
     public function order()
     {
         return $this->belongsTo(Order::class);

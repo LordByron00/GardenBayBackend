@@ -9,13 +9,10 @@ Route::get('/sanctum/csrf-cookie', [CsrfCookieController::class, 'show']);
 Route::get('/menu', [MenuItemController::class, 'index']);
 Route::post('/menu', [MenuItemController::class, 'storeMenu']);
 Route::put('/menu/{menuItem}', [MenuItemController::class, 'update']);
-Route::get('/menu-image/{filename}', function ($filename) {
-    $path = storage_path('app/public/menu_images/' . $filename);
-    if (!file_exists($path)) {
-        abort(404);
-    }
-    return response()->file($path);
+Route::post('/order', [OrderController::class, 'Store']);
+Route::get('/order', [OrderController::class, 'index']);
+Route::get('/test-cookies', function () {
+    return response()->json(request()->cookies->all());
 });
 
-// Route::post('/order', [OrderController::class, 'index']);
 
