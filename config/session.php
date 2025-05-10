@@ -156,7 +156,11 @@ return [
     |
     */
 
-    'domain' => env('SESSION_DOMAIN', 'localhost'),
+    // 'domain' => env('SESSION_DOMAIN', 'localhost'),
+    // 'domain' => env('SESSION_DOMAIN', request()->getHost() == 'localhost' ? 'localhost' : '10.0.2.2'),
+    'domain' => env('SESSION_DOMAIN', $_SERVER['HTTP_HOST'] ?? 'localhost'),
+
+
 
     /*
     |--------------------------------------------------------------------------
