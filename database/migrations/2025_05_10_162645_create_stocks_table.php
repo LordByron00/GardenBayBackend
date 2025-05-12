@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('image');
+            $table->integer('quantity');
+            $table->dateTime('date_received');
+            $table->dateTime('date_expiration');
+            $table->string('supplier');
+            $table->boolean('archived');
             $table->timestamps();
         });
     }

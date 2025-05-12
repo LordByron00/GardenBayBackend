@@ -160,7 +160,6 @@ return [
     'domain' => env('SESSION_DOMAIN', $_SERVER['HTTP_HOST'] ?? 'localhost'),
 
 
-
     /*
     |--------------------------------------------------------------------------
     | HTTPS Only Cookies

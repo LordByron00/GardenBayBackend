@@ -10,6 +10,10 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash; // Useful for hashing passwords
 use Nette\Utils\Random;
 
+use Database\Seeders\MenuItemsSeeder;
+use Database\Seeders\OrderItemsSeeder;
+
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -24,15 +28,22 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        for ($i = 1; $i <= 5; $i++) {
-            MenuItem::create([
-                'name' => "Menu {$i}",
-                'image' => "Menu {$i}.jpg",
-                'category' => 'main',
-                'description' => "Description {$i}",
-                'price' => 25,
-                'archived' => false,
-            ]);
-        }
+        // for ($i = 1; $i <= 5; $i++) {
+        //     MenuItem::create([
+        //         'name' => "Menu {$i}",
+        //         'image' => "Menu {$i}.jpg",
+        //         'category' => 'main',
+        //         'description' => "Description {$i}",
+        //         'price' => 25,
+        //         'archived' => false,
+        //     ]);
+        // }
+        
+        $this->call([
+            OrdersSeeder::class,
+            MenuItemsSeeder::class,
+            OrderItemsSeeder::class,
+        ]);
+        
     }
 }
