@@ -27,11 +27,10 @@ class AnalyticsController extends Controller
 
             case 'week':
                 $startCurrent = $now->copy()->startOfWeek();
-                $startPrev    = $startCurrent->copy()->subWeek();
+                $startPrev   = $startCurrent->copy()->subWeek();
                 $groupBy      = "strftime('%Y-%m-%d', oi.created_at)";
-                $labelExpr    = "strftime('%a', oi.created_at)";
+                $labelExpr    = "strftime('%w', oi.created_at)";
                 break;
-
             case 'month':
                 $startCurrent = $now->copy()->startOfMonth();
                 $startPrev    = $startCurrent->copy()->subMonth();
@@ -122,16 +121,34 @@ class AnalyticsController extends Controller
 
         // Line chart: revenue or sales over time
         $salesOverTime = DB::table('order_items as oi')
-        ->when($startCurrent, fn($q) => $q->whereBetween('oi.created_at', [$startCurrent, $now]))
-        ->selectRaw("$groupBy as grp, SUM(price * quantity) as revenue, SUM(quantity) as quantity, $labelExpr as label")
-        ->groupBy('grp')
-        ->orderBy('grp')
-        ->get()
-        ->map(fn($r) => [
-            'label'    => $r->label,
-            'revenue'  => (float) $r->revenue,
-            'quantity' => (int) $r->quantity,
-        ]);
+    ->when($startCurrent, fn($q) => $q->whereBetween('oi.created_at', [$startCurrent, $now]))
+    ->selectRaw("$groupBy as grp, SUM(price * quantity) as revenue, SUM(quantity) as quantity, $labelExpr as label")
+    ->groupBy('grp')
+    ->orderBy('grp')
+    ->get()
+    ->map(fn($r) => [
+        'label'    => $r->label,
+        'revenue'  => (float) $r->revenue,
+        'quantity' => (int) $r->quantity,
+    ]);
+
+        if ($period === 'week') {
+            $daysInWeek = [];
+            for ($i = 0; $i < 7; $i++) {
+                $label = (string) $i; // '0' to '6'
+                $daysInWeek[$label] = [
+                    'label'    => $label,
+                    'revenue'  => 0,
+                    'quantity' => 0,
+                ];
+            }
+        
+            foreach ($salesOverTime as $entry) {
+                $daysInWeek[$entry['label']] = $entry;
+            }
+        
+            $salesOverTime = array_values($daysInWeek);
+        }
     
         // 5. Revenue trend labels & values (current period)
         $trend = DB::table('order_items as oi')

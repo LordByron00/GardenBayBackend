@@ -32,7 +32,7 @@ class OrderItemsSeeder extends Seeder
                     'menu_item_id' => $menuItem->id,
                     'quantity' => $quantity,
                     'price' => number_format($price, 2, '.', ''),
-                    'created_at' => $order->created_at, // match order time
+                    'created_at' => $order->created_at,
                     'updated_at' => $order->created_at,
                 ]);
             }

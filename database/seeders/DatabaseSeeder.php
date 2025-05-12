@@ -40,8 +40,8 @@ class DatabaseSeeder extends Seeder
         // }
         
         $this->call([
-            OrdersSeeder::class,
             MenuItemsSeeder::class,
+            OrdersSeeder::class,
             OrderItemsSeeder::class,
         ]);
         
