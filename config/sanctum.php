@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS','localhost,127.0.0.1, 10.0.2.2, 10.0.2.2:8000, 10.0.2.2:8081')),
+    'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS','localhost,127.0.0.1, 10.0.2.2, 10.0.2.2:8000, 10.0.2.2:8081,http://localhost:8082,localhost:8082')),
 
     /*
     |--------------------------------------------------------------------------

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class OrderItem extends Model
 {
     use HasFactory;
-    protected $fillable = ['order_id', 'menu_item_id', 'quantity', 'price'];
+    protected $fillable = ['order_id', 'menu_item_id', 'quantity', 'price', 'status'];
 
     // protected $fillable = ['menu_item_id', 'quantity', 'price'];
 
@@ -22,6 +22,6 @@ class OrderItem extends Model
     
     public function menuItem()
     {
-        return $this->belongsTo(MenuItem::class, 'menu_items_id');
+        return $this->belongsTo(MenuItem::class);
     }
 }

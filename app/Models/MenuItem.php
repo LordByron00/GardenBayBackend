@@ -57,5 +57,10 @@ class MenuItem extends Model
         // Define type casting for attributes if needed (e.g., 'price' => 'float')
     ];
 
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
 
 }

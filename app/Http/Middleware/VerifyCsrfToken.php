@@ -27,7 +27,7 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         '/order', 
         'api/order',
-        '/menu'
-
+        '/menu',
+        'kds/orders/*/completed',
     ];
 }

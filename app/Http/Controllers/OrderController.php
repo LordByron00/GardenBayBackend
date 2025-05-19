@@ -39,7 +39,7 @@ class OrderController extends Controller
             // Create order
             $order = Order::create([
                 'total_price' => $totalPrice,
-                // Add other necessary fields like user_id, status, etc.
+                'status' => 'new',
             ]);
 
             // Transform order items to match DB schema
@@ -47,7 +47,7 @@ class OrderController extends Controller
                 return [
                     'menu_item_id' => $item['id'], // Rename key
                     'quantity' => $item['quantity'],
-                    'price' => $item['price']
+                    'price' => $item['price'],
                 ];
             })->toArray();
 
